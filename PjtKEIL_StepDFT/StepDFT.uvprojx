@@ -10,7 +10,7 @@
       <TargetName>Simu</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -387,6 +387,21 @@
               <FileName>principal.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\principal.c</FilePath>
+            </File>
+            <File>
+              <FileName>DFT.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\DFT.s</FilePath>
+            </File>
+            <File>
+              <FileName>Signal.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\Signal.asm</FilePath>
+            </File>
+            <File>
+              <FileName>startup-rvds.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\startup-rvds.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -796,6 +811,21 @@
               <FileName>principal.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\principal.c</FilePath>
+            </File>
+            <File>
+              <FileName>DFT.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\DFT.s</FilePath>
+            </File>
+            <File>
+              <FileName>Signal.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\Signal.asm</FilePath>
+            </File>
+            <File>
+              <FileName>startup-rvds.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\startup-rvds.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -1275,6 +1305,21 @@
               <FileType>1</FileType>
               <FilePath>.\Src\principal.c</FilePath>
             </File>
+            <File>
+              <FileName>DFT.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\DFT.s</FilePath>
+            </File>
+            <File>
+              <FileName>Signal.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\Signal.asm</FilePath>
+            </File>
+            <File>
+              <FileName>startup-rvds.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\startup-rvds.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1322,7 +1367,7 @@
   <LayerInfo>
     <Layers>
       <Layer>
-        <LayName>&lt;Project Info&gt;</LayName>
+        <LayName>StepDFT</LayName>
         <LayTarg>0</LayTarg>
         <LayPrjMark>1</LayPrjMark>
       </Layer>
