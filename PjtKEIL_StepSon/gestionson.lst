@@ -1,0 +1,198 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 PRESERVE8
+    2 00000000                 THUMB
+    3 00000000         
+    4 00000000         
+    5 00000000         ; ====================== zone de réservation de données,
+                         ======================================
+    6 00000000         ;Section RAM (read only) :
+    7 00000000                 area             mesdata,data,readonly
+    8 00000000         
+    9 00000000         ;Section RAM (read write):
+   10 00000000                 area             maram,data,readwrite
+   11 00000000         
+   12 00000000         
+   13 00000000         
+   14 00000000         ; ======================================================
+                       =========================================
+   15 00000000         
+   16 00000000 00000002 
+                       OS_SIZE equ              2
+   17 00000000 00001588 
+                       Max_ech equ              5512
+   18 00000000 00000001 
+                       SortieSon
+                               dcd              1
+   19 00000004 00000000 
+                       Index   dcd              0
+   20 00000008         ;Section ROM code (read only) :  
+   21 00000008                 area             moncode,code,readonly
+   22 00000000                 extern           Son
+   23 00000000                 export           CallBackSon
+   24 00000000                 export           Index
+   25 00000000                 export           SortieSon
+   26 00000000         
+   27 00000000         ; écrire le code ici  
+   28 00000000         
+   29 00000000         CallBackSon
+                               proc
+   30 00000000         
+   31 00000000 B500            push             {lr}
+   32 00000002 480C            ldr              r0,=SortieSon ; r0 = &SortieSon
+                                                            
+   33 00000004 490C            ldr              r1,=Son     ; r1 = &son
+   34 00000006 4A0D            ldr              r2,=Index   ; r2 = &index
+   35 00000008 6813            ldr              r3,[r2]     ; r3 = index
+   36 0000000A         
+   37 0000000A F931 C003       ldrsh            r12,[r1,r3] ; r12=son[index]
+   38 0000000E         
+   39 0000000E F04F 035B       mov              r3,#91
+   40 00000012 FB9C FCF3       sdiv             r12,r3
+   41 00000016 F44F 73A0       mov              r3,#320
+   42 0000001A 449C            add              r12,r3
+   43 0000001C         
+   44 0000001C F8C0 C000       str              r12,[r0]
+   45 00000020         
+   46 00000020 F241 5C88       ldr              r12,=Max_ech
+   47 00000024 6813            ldr              r3,[r2]
+   48 00000026 4563            cmp              r3,r12
+   49 00000028 BFB8            it               lt
+   50 0000002A 3302            addlt            r3,#OS_SIZE
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   51 0000002C 6013            str              r3,[r2]     ; r2 = r3 (nouvel i
+                                                            ndex)
+   52 0000002E F85D EB04       pop              {lr}
+   53 00000032 4770            bx               lr
+   54 00000034                 endp
+   55 00000034         
+   56 00000034                 END
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\gestionson.d -o.\obj\gestionson.o -I.\RTE\_Simu -IC:\Program
+data\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programdata\Keil\Ar
+m\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL SETA 1" --p
+redefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 534" --predefi
+ne="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" 
+--list=gestionson.lst Src\GestionSon.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+mesdata 00000000
+
+Symbol: mesdata
+   Definitions
+      At line 7 in file Src\GestionSon.s
+   Uses
+      None
+Comment: mesdata unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Index 00000004
+
+Symbol: Index
+   Definitions
+      At line 19 in file Src\GestionSon.s
+   Uses
+      At line 24 in file Src\GestionSon.s
+      At line 34 in file Src\GestionSon.s
+
+SortieSon 00000000
+
+Symbol: SortieSon
+   Definitions
+      At line 18 in file Src\GestionSon.s
+   Uses
+      At line 25 in file Src\GestionSon.s
+      At line 32 in file Src\GestionSon.s
+
+maram 00000000
+
+Symbol: maram
+   Definitions
+      At line 10 in file Src\GestionSon.s
+   Uses
+      None
+Comment: maram unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CallBackSon 00000000
+
+Symbol: CallBackSon
+   Definitions
+      At line 29 in file Src\GestionSon.s
+   Uses
+      At line 23 in file Src\GestionSon.s
+Comment: CallBackSon used once
+moncode 00000000
+
+Symbol: moncode
+   Definitions
+      At line 21 in file Src\GestionSon.s
+   Uses
+      None
+Comment: moncode unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+Max_ech 00001588
+
+Symbol: Max_ech
+   Definitions
+      At line 17 in file Src\GestionSon.s
+   Uses
+      At line 46 in file Src\GestionSon.s
+Comment: Max_ech used once
+OS_SIZE 00000002
+
+Symbol: OS_SIZE
+   Definitions
+      At line 16 in file Src\GestionSon.s
+   Uses
+      At line 50 in file Src\GestionSon.s
+Comment: OS_SIZE used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+Son 00000000
+
+Symbol: Son
+   Definitions
+      At line 22 in file Src\GestionSon.s
+   Uses
+      At line 33 in file Src\GestionSon.s
+Comment: Son used once
+1 symbol
+346 symbols in table
