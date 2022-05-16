@@ -23,7 +23,7 @@
 	export DFT_Signal
 
 DFT_Signal proc
-	push {lr,r4-r10}
+	push {lr,r4-r12}
 	
 	ldr R2, =TabCos 
 	ldr R3, =TabSin
@@ -39,12 +39,12 @@ boucleFor
  	and R6, #0x3F ;p = p mod 64
  	 
  	;Partie Reelle
- 	ldrsh R9, [R3, R6, lsl#1] ; R9 = TabCos[p] ;1.15 (16bits)
+ 	ldrsh R9, [R2, R6, lsl#1] ; R9 = TabCos[p] ;1.15 (16bits)
  	mul R10, R8, R9 ;R10 = x[n] * TabCos[p] ;4.12 * 1.15 = 5.27 (32bits)
  	add R4, R10 ;PartieRéelle = PartieRéelle + R10 = PartieRéelle + x[n] * TabCos[p]
  	 
  	;Partie Imaginaire
- 	ldrsh R9, [R2, R6, lsl#1] ; R9 = TabSin[p] ;1.15 (16bits)
+ 	ldrsh R9, [R3, R6, lsl#1] ; R9 = TabSin[p] ;1.15 (16bits)
  	mul R10, R8, R9 ;R10 = x[n] * TabSin[p] ;4.12 * 1.15 = 5.27 (32bits)
  	add R5, R10 ;PartieIm = PartieIm + R10 = PartieIm + x[n] * TabSin[p]
  	 
@@ -54,16 +54,17 @@ boucleFor
  	bne boucleFor ;boucle tant que n != 64
  	 
  	;R4*R4 rend un entier sur 64 bits ce qui peut poser problème car notre processeur est sur 32
- 	;On décalle à droite R4 (=on se passe des détails arès la virgule) avec als car R4 est signé
- 	mov R4, R4, asr#16 ; 5.11 (16bits)
- 	mul R4, R4 ;10.22(32bits)
+ 	;On décalle à droite R4 (=on se passe des détails arès la virgule) avec asr car R4 est signé
+ 	;mov R4, R4, asr#16 ; 5.11 (16bits)
+	
+ 	smull R12, R11, R4, R4 ;10.54(32bits)
  	;idem avec R5
- 	mov R5, R5, asr#16 ;5.11 (16bits)
- 	mul R5, R5 ;(32bits) ;10.22(32bits)
+ 	;mov R5, R5, asr#16 ;5.11 (16bits)
+ 	smull R8,R7,R5, R5 ;(32bits) ;10.22(32bits)
  	 
- 	add R0, R4, R5 ;RO = PartieReelle^2 + PartieIm^2 ;10.22(32bits)
+ 	add R0, R12, R8 ;RO = PartieReelle^2 + PartieIm^2 ;10.22(32bits)
  	 
- 	pop {pc, R4-R10}
+ 	pop {pc, R4-R12}
  	endp
 
 

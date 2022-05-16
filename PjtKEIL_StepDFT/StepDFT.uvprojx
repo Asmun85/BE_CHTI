@@ -398,11 +398,6 @@
               <FileType>2</FileType>
               <FilePath>.\Src\Signal.asm</FilePath>
             </File>
-            <File>
-              <FileName>startup-rvds.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\startup-rvds.s</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -821,11 +816,6 @@
               <FileName>Signal.asm</FileName>
               <FileType>2</FileType>
               <FilePath>.\Src\Signal.asm</FilePath>
-            </File>
-            <File>
-              <FileName>startup-rvds.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\startup-rvds.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -1314,11 +1304,6 @@
               <FileName>Signal.asm</FileName>
               <FileType>2</FileType>
               <FilePath>.\Src\Signal.asm</FilePath>
-            </File>
-            <File>
-              <FileName>startup-rvds.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\startup-rvds.s</FilePath>
             </File>
           </Files>
         </Group>
