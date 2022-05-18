@@ -33,7 +33,10 @@ Index dcd 5511 ;on commence à la fin du son, pour ne pas le jouer à chaque lance
 ;Section ROM code (read only) :		
 	area    moncode,code,readonly
 ; écrire le code ici		
-
+	extern Son 
+	export CallbackSon
+	export Index
+	export SortieSon
 CallbackSon proc 
 	
 	push {lr}
@@ -81,7 +84,6 @@ reset ;si R3 == R1 soit si le son a déjà été joué en entier
 	mov R0,#0 ;on envoie 0
 
 end_callback
-
 	str R3, [R2] ;enregistrement de la valeur de l'INDEX pour que les changements soient visibles
 
 	;Remarque : l'adresse de la variable Index ne nous est plus utile

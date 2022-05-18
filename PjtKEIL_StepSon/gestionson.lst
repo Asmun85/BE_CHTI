@@ -118,37 +118,40 @@ ARM Macro Assembler    Page 2
    33 00000008         ;Section ROM code (read only) :  
    34 00000008                 area             moncode,code,readonly
    35 00000000         ; écrire le code ici  
-   36 00000000         
-   37 00000000         CallbackSon
+   36 00000000                 extern           Son
+   37 00000000                 export           CallbackSon
+   38 00000000                 export           Index
+   39 00000000                 export           SortieSon
+   40 00000000         CallbackSon
                                proc
-   38 00000000         
-   39 00000000 B500            push             {lr}
-   40 00000002         
-   41 00000002         ;récupération des adresses des variables
-   42 00000002 4A11            ldr              R2,=Index
-   43 00000004 6813            ldr              R3,[R2]     ;R3 = Index
-   44 00000006         
+   41 00000000         
+   42 00000000 B500            push             {lr}
+   43 00000002         
+   44 00000002         ;récupération des adresses des variables
 
 
 
 ARM Macro Assembler    Page 3 
 
 
-   45 00000006         ;après StartSon : comparaison avant étude du son
-   46 00000006 F241 5187       mov              R1, #5511   ;R1 = 5511 = Longeu
+   45 00000002 4A11            ldr              R2,=Index
+   46 00000004 6813            ldr              R3,[R2]     ;R3 = Index
+   47 00000006         
+   48 00000006         ;après StartSon : comparaison avant étude du son
+   49 00000006 F241 5187       mov              R1, #5511   ;R1 = 5511 = Longeu
                                                             rSon-1
-   47 0000000A 428B            cmp              R3, R1      ;regarde si R3 == R
+   50 0000000A 428B            cmp              R3, R1      ;regarde si R3 == R
                                                             1 soit Index == Lon
                                                             gueurSon-1  
-   48 0000000C D00D            beq              reset       ;nous envoie à rese
+   51 0000000C D00D            beq              reset       ;nous envoie à rese
                                                             t si R3 == R1 
-   49 0000000E         
-   50 0000000E 490F            ldr              R1,=Son     ;R1=adresse premièr
+   52 0000000E         
+   53 0000000E 490F            ldr              R1,=Son     ;R1=adresse premièr
                                                             e composante de Son
                                                             
-   51 00000010         
-   52 00000010         ;récupération de la valeur du son dans r0
-   53 00000010 F931 0013       ldrsh            R0,[R1,R3,lsl#1] ;s pour signé 
+   54 00000010         
+   55 00000010         ;récupération de la valeur du son dans r0
+   56 00000010 F931 0013       ldrsh            R0,[R1,R3,lsl#1] ;s pour signé 
                                                             (copie du signe), h
                                                              pour short integer
                                                              (copie sur 2octets
@@ -156,89 +159,88 @@ ARM Macro Assembler    Page 3
                                                             à gauche de 1 bit) 
                                                             pour multiplier par
                                                              2 l'index
-   54 00000014 F103 0301       add              R3,#1       ;incremente index
-   55 00000018         ;IDEM à : ldrsh R0,[R1,R3]
-   56 00000018         ; add R3,#2
-   57 00000018         
-   58 00000018         ;Remarque : l'adresse de la variable Son ne nous est plu
-                       s utile
-   59 00000018         ;donc R1 peut être utilisée pour faire des opérations
+   57 00000014 F103 0301       add              R3,#1       ;incremente index
+   58 00000018         ;IDEM à : ldrsh R0,[R1,R3]
+   59 00000018         ; add R3,#2
    60 00000018         
-   61 00000018         ;normalisation 1
-   62 00000018         ;add R0,#32768
-   63 00000018         ;mov R1,#720
-   64 00000018         ;mul R0,R1
-   65 00000018         ;mov R1,#65535
-   66 00000018         ;udiv R0,R1
-   67 00000018         
-   68 00000018         ;normalisation 2
-   69 00000018 F04F 012D       mov              R1,#45
-   70 0000001C FB00 F001       mul              R0,R1
-   71 00000020 EA4F 3020       asr              R0,#12
-   72 00000024 F500 70B4       add              R0,#360
-   73 00000028         
-   74 00000028         ;avant StartSon : comparaison après étude du son
-   75 00000028 E001            b                end_callback
-   76 0000002A         
-   77 0000002A         reset                                ;si R3 == R1 soit s
+   61 00000018         ;Remarque : l'adresse de la variable Son ne nous est plu
+                       s utile
+   62 00000018         ;donc R1 peut être utilisée pour faire des opérations
+   63 00000018         
+   64 00000018         ;normalisation 1
+   65 00000018         ;add R0,#32768
+   66 00000018         ;mov R1,#720
+   67 00000018         ;mul R0,R1
+   68 00000018         ;mov R1,#65535
+   69 00000018         ;udiv R0,R1
+   70 00000018         
+   71 00000018         ;normalisation 2
+   72 00000018 F04F 012D       mov              R1,#45
+   73 0000001C FB00 F001       mul              R0,R1
+   74 00000020 EA4F 3020       asr              R0,#12
+   75 00000024 F500 70B4       add              R0,#360
+   76 00000028         
+   77 00000028         ;avant StartSon : comparaison après étude du son
+   78 00000028 E001            b                end_callback
+   79 0000002A         
+   80 0000002A         reset                                ;si R3 == R1 soit s
                                                             i le son a déjà été
                                                              joué en entier 
-   78 0000002A         ;avant StartSon :
-   79 0000002A         ;mov R3,#0 ;remise à 0 de l'INDEX, on rejoue le son
-   80 0000002A         ;après StartSon :
-   81 0000002A F04F 0000       mov              R0,#0       ;on envoie 0
-   82 0000002E         
-   83 0000002E         end_callback
-   84 0000002E         
-   85 0000002E 6013            str              R3, [R2]    ;enregistrement de 
-                                                            la valeur de l'INDE
-                                                            X pour que les chan
+   81 0000002A         ;avant StartSon :
+   82 0000002A         ;mov R3,#0 ;remise à 0 de l'INDEX, on rejoue le son
+   83 0000002A         ;après StartSon :
+   84 0000002A F04F 0000       mov              R0,#0       ;on envoie 0
+   85 0000002E         
+   86 0000002E         end_callback
+   87 0000002E 6013            str              R3, [R2]    ;enregistrement de 
 
 
 
 ARM Macro Assembler    Page 4 
 
 
-                                                            gements soient visi
-                                                            bles
-   86 00000030         
-   87 00000030         ;Remarque : l'adresse de la variable Index ne nous est p
-                       lus utile
-   88 00000030         ;donc R2 peut être utilisée pour faire des opérations
-   89 00000030         
-   90 00000030 4A07            ldr              R2, =SortieSon
-   91 00000032 6010            str              R0, [R2]    ;on met notre valeu
-                                                            r du son normalisée
-                                                             à l'adresse de Sor
-                                                            tieSon
-   92 00000034         
-   93 00000034 F7FF FFFE       bl               PWM_Set_Value_TIM3_Ch3
-   94 00000038         
-   95 00000038 BD00            pop              {pc}
-   96 0000003A                 endp
-   97 0000003A         ;IDEM à : pop {lr} 
-   98 0000003A         ; bx lr
-   99 0000003A         ; endp
-  100 0000003A         
-  101 0000003A         
-  102 0000003A         StartSon
-                               proc
-  103 0000003A         
-  104 0000003A B500            push             {lr}
-  105 0000003C 4A02            ldr              R2,=Index
-  106 0000003E 6813            ldr              R3,[R2]     ;R3 = Index
-  107 00000040 F04F 0300       mov              R3,#0       ;remise à 0 de l'IN
-                                                            DEX => on joue le s
-                                                            on
-  108 00000044 6013            str              R3, [R2]    ;enregistrement de 
                                                             la valeur de l'INDE
                                                             X pour que les chan
                                                             gements soient visi
                                                             bles
-  109 00000046 BD00            pop              {pc}
-  110 00000048                 endp
-  111 00000048         
-  112 00000048         END
+   88 00000030         
+   89 00000030         ;Remarque : l'adresse de la variable Index ne nous est p
+                       lus utile
+   90 00000030         ;donc R2 peut être utilisée pour faire des opérations
+   91 00000030         
+   92 00000030 4A07            ldr              R2, =SortieSon
+   93 00000032 6010            str              R0, [R2]    ;on met notre valeu
+                                                            r du son normalisée
+                                                             à l'adresse de Sor
+                                                            tieSon
+   94 00000034         
+   95 00000034 F7FF FFFE       bl               PWM_Set_Value_TIM3_Ch3
+   96 00000038         
+   97 00000038 BD00            pop              {pc}
+   98 0000003A                 endp
+   99 0000003A         ;IDEM à : pop {lr} 
+  100 0000003A         ; bx lr
+  101 0000003A         ; endp
+  102 0000003A         
+  103 0000003A         
+  104 0000003A         StartSon
+                               proc
+  105 0000003A         
+  106 0000003A B500            push             {lr}
+  107 0000003C 4A02            ldr              R2,=Index
+  108 0000003E 6813            ldr              R3,[R2]     ;R3 = Index
+  109 00000040 F04F 0300       mov              R3,#0       ;remise à 0 de l'IN
+                                                            DEX => on joue le s
+                                                            on
+  110 00000044 6013            str              R3, [R2]    ;enregistrement de 
+                                                            la valeur de l'INDE
+                                                            X pour que les chan
+                                                            gements soient visi
+                                                            bles
+  111 00000046 BD00            pop              {pc}
+  112 00000048                 endp
+  113 00000048         
+  114 00000048         END
                        
               00000000 
               00000000 
@@ -278,8 +280,9 @@ Symbol: Index
       At line 26 in file Src\GestionSon.s
    Uses
       At line 7 in file Src\GestionSon.s
-      At line 42 in file Src\GestionSon.s
-      At line 105 in file Src\GestionSon.s
+      At line 38 in file Src\GestionSon.s
+      At line 45 in file Src\GestionSon.s
+      At line 107 in file Src\GestionSon.s
 
 SortieSon 00000000
 
@@ -288,7 +291,8 @@ Symbol: SortieSon
       At line 21 in file Src\GestionSon.s
    Uses
       At line 6 in file Src\GestionSon.s
-      At line 90 in file Src\GestionSon.s
+      At line 39 in file Src\GestionSon.s
+      At line 92 in file Src\GestionSon.s
 
 maram 00000000
 
@@ -309,15 +313,16 @@ CallbackSon 00000000
 
 Symbol: CallbackSon
    Definitions
-      At line 37 in file Src\GestionSon.s
+      At line 40 in file Src\GestionSon.s
    Uses
       At line 4 in file Src\GestionSon.s
-Comment: CallbackSon used once
+      At line 37 in file Src\GestionSon.s
+
 END 00000048
 
 Symbol: END
    Definitions
-      At line 112 in file Src\GestionSon.s
+      At line 114 in file Src\GestionSon.s
    Uses
       None
 Comment: END unused
@@ -325,7 +330,7 @@ StartSon 0000003A
 
 Symbol: StartSon
    Definitions
-      At line 102 in file Src\GestionSon.s
+      At line 104 in file Src\GestionSon.s
    Uses
       At line 5 in file Src\GestionSon.s
 Comment: StartSon used once
@@ -333,9 +338,9 @@ end_callback 0000002E
 
 Symbol: end_callback
    Definitions
-      At line 83 in file Src\GestionSon.s
+      At line 86 in file Src\GestionSon.s
    Uses
-      At line 75 in file Src\GestionSon.s
+      At line 78 in file Src\GestionSon.s
 Comment: end_callback used once
 moncode 00000000
 
@@ -349,9 +354,9 @@ reset 0000002A
 
 Symbol: reset
    Definitions
-      At line 77 in file Src\GestionSon.s
+      At line 80 in file Src\GestionSon.s
    Uses
-      At line 48 in file Src\GestionSon.s
+      At line 51 in file Src\GestionSon.s
 Comment: reset used once
 6 symbols
 
@@ -428,15 +433,16 @@ External symbols
    Definitions
       At line 18 in file Driver\DriverJeuLaser.inc
    Uses
-      At line 93 in file Src\GestionSon.s
+      At line 95 in file Src\GestionSon.s
 Comment: PWM_Set_Value_TIM3_Ch3 used once
 Son 00000000
 
 Symbol: Son
    Definitions
       At line 8 in file Src\GestionSon.s
+      At line 36 in file Src\GestionSon.s
    Uses
-      At line 50 in file Src\GestionSon.s
-Comment: Son used once
+      At line 53 in file Src\GestionSon.s
+Warning: Son multiply definedComment: Son used once
 9 symbols
 356 symbols in table

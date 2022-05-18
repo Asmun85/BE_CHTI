@@ -18,7 +18,8 @@ int main(void)
 CLOCK_Configure();
 //signal_rec[1]= DFT_Signal(buff, 1);
 
-for(int k=0; k<64; k++){
+
+	for(int k=0; k<64; k++){
 	signal_rec[k] = DFT_Signal(LeSignal, k);
 	res = signal_rec[k];
 }

@@ -388,6 +388,16 @@
               <FileType>1</FileType>
               <FilePath>.\Src\principal.c</FilePath>
             </File>
+            <File>
+              <FileName>bruitverre.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\bruitverre.asm</FilePath>
+            </File>
+            <File>
+              <FileName>GestionSon.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\GestionSon.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -407,21 +417,6 @@
               <FileName>DriverJeuLaser.lib</FileName>
               <FileType>4</FileType>
               <FilePath>.\Driver\DriverJeuLaser.lib</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Son</GroupName>
-          <Files>
-            <File>
-              <FileName>bruitverre.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\bruitverre.asm</FilePath>
-            </File>
-            <File>
-              <FileName>GestionSon.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\GestionSon.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -812,6 +807,16 @@
               <FileType>1</FileType>
               <FilePath>.\Src\principal.c</FilePath>
             </File>
+            <File>
+              <FileName>bruitverre.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\bruitverre.asm</FilePath>
+            </File>
+            <File>
+              <FileName>GestionSon.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\GestionSon.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -831,21 +836,6 @@
               <FileName>DriverJeuLaser.lib</FileName>
               <FileType>4</FileType>
               <FilePath>.\Driver\DriverJeuLaser.lib</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Son</GroupName>
-          <Files>
-            <File>
-              <FileName>bruitverre.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\bruitverre.asm</FilePath>
-            </File>
-            <File>
-              <FileName>GestionSon.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\GestionSon.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -1305,6 +1295,16 @@
               <FileType>1</FileType>
               <FilePath>.\Src\principal.c</FilePath>
             </File>
+            <File>
+              <FileName>bruitverre.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\bruitverre.asm</FilePath>
+            </File>
+            <File>
+              <FileName>GestionSon.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\GestionSon.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1324,21 +1324,6 @@
               <FileName>DriverJeuLaser.lib</FileName>
               <FileType>4</FileType>
               <FilePath>.\Driver\DriverJeuLaser.lib</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Son</GroupName>
-          <Files>
-            <File>
-              <FileName>bruitverre.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\bruitverre.asm</FilePath>
-            </File>
-            <File>
-              <FileName>GestionSon.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\GestionSon.s</FilePath>
             </File>
           </Files>
         </Group>
